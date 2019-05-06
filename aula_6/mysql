@@ -1,0 +1,96 @@
+sudo su
+
+mysql -u root -p
+
+CREATE DATABASE projetos;
+SHOW DATABASES;
+GRANT ALL PRIVILEGES ON projetos.* TO admin@'localhost' IDENTIFIED BY '@4Linux2019' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+CREATE TABLE usuarios(
+    id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(50),
+    email VARCHAR(50),
+    idade INTEGER
+);
+DESCRIBE usuarios;
+
+INSERT INTO usuarios (nome, email, idade)
+    -> VALUES ('Lucas', 'daniel.leandro@outlook.com.br', 32);
+
+UPDATE usuarios SET nome = 'Daniel Alves Leandro' WHERE id = 1;
+SELECT * FROM USUARIOS;
+
+CREATE TABLE times(
+    id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(50)
+);
+
+INSERT INTO times (nome) VALUES ('São Paulo');
+
+DESCRIBE times;
+
+CREATE TABLE rel_usuarios_times(
+    id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    usuario INTEGER,
+    time INTEGER
+);
+
+    ->     -> VALUES ('São Paulo');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> VALUES ('São Paulo')' at line 2
+MariaDB [projetos]> INSERT INTO times (nome) VALUES ('São Paulo');
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [projetos]> CREATE TABLE rel_usuarios_times(
+    ->     id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    ->     usuario INTEGER,
+    ->     time INTEGER
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+MariaDB [projetos]> SELECT * FROM usuarios;
++----+----------------------+-------------------------------+-------+
+| id | nome                 | email                         | idade |
++----+----------------------+-------------------------------+-------+
+|  1 | Daniel Alves Leandro | daniel.leandro@outlook.com.br |    32 |
++----+----------------------+-------------------------------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [projetos]> SELECT * FROM usuarios Ctrl-C -- exit!
+Aborted
+root@developer:/home/developer/python-520/aula_6# mysql -u root -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 5
+Server version: 10.1.21-MariaDB-5+b1 Debian 9.0
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> INSERT INTO rel_usuarios_times (usuario, time) VALUES (1, 1);
+ERROR 1046 (3D000): No database selected
+MariaDB [(none)]> USE projetos;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [projetos]> INSERT INTO rel_usuarios_times (usuario, time) VALUES (1, 1);
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [projetos]> SELECT * FROM usuarios u
+    -> INNER JOIN rel_usuarios_times r
+    -> ON u.id = r.usuario
+    -> INNER JOIN times t
+    -> ON t.id = r.time
+    -> WHERE t.nome = 'São Paulo';
++----+----------------------+-------------------------------+-------+----+---------+------+----+------------+
+| id | nome                 | email                         | idade | id | usuario | time | id | nome       |
++----+----------------------+-------------------------------+-------+----+---------+------+----+------------+
+|  1 | Daniel Alves Leandro | daniel.leandro@outlook.com.br |    32 |  1 |       1 |    1 |  1 | São Paulo  |
++----+----------------------+-------------------------------+-------+----+---------+------+----+------------+
+1 row in set (0.00 sec)
+
+
+
+

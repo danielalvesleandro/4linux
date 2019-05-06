@@ -1,0 +1,32 @@
+
+
+sudo apt-get install mongodb
+
+banco de dados não-relacional
+
+mongo   # abre console java script
+nodeJS trouxe java script para o backend
+
+var u = { nome: 'Daniel }
+u
+
+saída:  { "nome" : "Daniel" }   # armazena em formato de json, não como tabelas
+
+tabelas = coleções
+
+use lyon # criando o banco lyon / equivalente ao CREATE DATABASE
+
+db.usuarios.insert({                  # Cria usuário e coleção inserindo registro
+... nome: 'Daniel Alves Leandro',
+... email: 'daniel.leandro@outlook.com.br',
+... idade: 25
+... })
+
+db.usuarios.find()  # lista usuários da coleção usuarios
+
+
+
+{ $lookup: { from: usuarios, localField: nome, foreignField: time, as: <output array field> }
+}
+
+

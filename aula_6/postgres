@@ -1,0 +1,45 @@
+psql
+
+CREATE USER admin PASSWORD '4linux';
+CREATE DATABASE projeto OWNER admin;
+\q
+
+psql -h localhost -U admin projeto
+
+CREATE TABLE usuarios(id SERIAL, nome VARCHAR(50), email VARCHAR(50), idade INTEGER);
+
+\d   #descreve todas tabelas do banco
+\d usuarios    #descreve tabela usuarios
+
+BEGIN;   # abre uma transação, com ela pode-se dar Rollback ou Commit, sem isso o que é feito não tem volta
+projeto=> INSERT INTO usuarios (nome, email, idade)
+projeto-> VALUES (
+projeto(> 'Daniel Alves Leandro',
+projeto(> 'daniel.leandro@outlook.com.br',
+projeto(> 25);
+COMMIT;   # ROLLBACK; para desfazer e voltar ao estado do início da transação
+
+SELECT * FROM usuarios;
+SELECT * FROM usuarios ORDER BY id;
+
+UPDATE usuarios SET idade = 32 WHERE id = 1;    # sem o WHERE altera TUDO!se
+
+
+# relacionamento entre tabelas
+# Dois tipos: um pra muitos e muitos pra muitos
+
+CREATE TABLE rel_usuarios_times (id SERIAL, usuario INTEGER, time INTEGER);
+INSERT INTO rel_usuarios_times (usuario, times) VALUES (1, 1);
+INSERT INTO rel_usuarios_times (usuario, times) VALUES (4, 2);
+
+SELECT * from usuarios u
+INNER JOIN rel_usuarios_times r
+ON u.id = r.usuario
+INNER JOIN times t
+ON r.times = t.id
+WHERE t.nome = 'São Paulo';
+
+\x # altera a visualização modo tabela expandida ou não
+
+ALTER TABLE rel_usuarios_times RENAME times TO time;
+

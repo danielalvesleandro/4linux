@@ -1,0 +1,25 @@
+
+# Mostra tipo da variável
+type(lista)
+
+# Mostra tipo da variável
+type(lista[0])
+
+
+tamanho += 1 é o mesmo que tamanho = tamanho + 1
+
+Definições:
+Classe: 
+Função: similar a função matemática, fornece parâmetros que são variáveis, a função em si não muda
+
+Callback : função chamada ao terminar outra função (exemplo: loading page pro usuário, ao terminar de carregar chama outra função)
+
+args qq argumento não nomeado
+kwargs qq argumento nomeado
+função encapsula comportamento
+função pode ser tratada como variável
+variável pode ser manipulada
+comportamento pode ser tratado como variável, podendo ser manipulado como recurso dentro de uma função
+logo, podemos tratar o comportamento de forma abstrata
+após ação (comportamento), execute tal coisa
+
