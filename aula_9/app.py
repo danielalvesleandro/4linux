@@ -2,7 +2,7 @@ import threading
 
 import modules.banco as banco
 
-if __name__ '__main__':             # 
+if __name__ == '__main__':  # só executa o que tiver abaixo se executar o próprio arquivo diretamente pelo shell
     usuario = input('Digite seu nick: ')
     try:
         f = threading.Thread(target=banco.select)
@@ -13,3 +13,5 @@ if __name__ '__main__':             #
     while f.isAlive:
         mensagem = input()
         banco.cadastrar(usuario, mensagem)
+
+    

@@ -11,7 +11,8 @@ import pymongo          # depois módulos terceiros
 #     exit()
 
 try:
-    client = pymongo.MongoClient()
+    #client = pymongo.MongoClient('192.168.202.98')
+    client = pymongo.MongoClient("mongodb://admin:aPSFpvXDLWfHtEX7@cluster0-shard-00-00-nstlp.mongodb.net:27017,cluster0-shard-00-01-nstlp.mongodb.net:27017,cluster0-shard-00-02-nstlp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true")
     db = client.chat
 except Exception as err:
     print('ERRO: {}'.format(err))
